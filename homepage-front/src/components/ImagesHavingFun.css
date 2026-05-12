@@ -1,0 +1,28 @@
+.imagesHavingFun {
+  font-family: sans-serif;
+  text-align: center;
+}
+
+.imagesHavingFun-inner {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  min-height: 5rem;
+}
+
+.imagesHavingFun-splide .splide__track {
+  min-height: 5rem;
+}
+
+.imagesHavingFun-splide .splide__slide {
+  display: flex;
+  align-items: center;
+}
+
+.imagesHavingFun img {
+  display: block;
+  width: 100%;
+  height: 10rem;
+  object-fit: cover;
+  border-radius: 16px;
+}
