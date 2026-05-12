@@ -14,7 +14,7 @@ const splideOptions = {
   type: 'loop',
   drag: 'free',
   fixedWidth: '300px',
-  gap: '1rem',
+  gap: '2rem',
   autoScroll: {
     speed: 0.85,
     rewind: true,
@@ -27,7 +27,7 @@ const splideOptions = {
 
 const ImagesHavingFun = () => {
   return (
-    <section className="imagesHavingFun container mx-auto py-8">
+    <section className="imagesHavingFun container mx-auto">
       {/* <h2 className="mb-6 text-2xl font-semibold tracking-tight text-zinc-900">フォトギャラリー</h2> */}
       <div className="imagesHavingFun-inner">
         <Splide

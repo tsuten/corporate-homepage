@@ -6,13 +6,11 @@ import Services from '../components/Services'
 import Gallery from '../components/Gallery'
 const Index = () => {
   return (
-    <section>
+    <section className="flex flex-col gap-16">
       <Landing />
-      <ImagesHavingFun />
       <Services />
       <AboutUs />
       <Announcements />
-      <Gallery />
     </section>
   )
 }

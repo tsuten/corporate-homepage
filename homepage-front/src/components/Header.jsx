@@ -30,12 +30,12 @@ const NavLink = ({ item, isActive, emphasis }) => {
   return (
     <>
     {!emphasis && (
-      <Link to={item.href} className="rounded-full px-4 py-2 transition-all duration-300 hover:bg-white/25 hover:text-white">
+      <Link to={item.href} className="rounded-full px-4 py-2 transition-all duration-300 hover:bg-white/15 hover:text-white">
         {item.label}
       </Link>
     )}
     {emphasis && (
-      <Link to={item.href} className="hover:text-white bg-amber-600 px-4 py-2 rounded-full transition-all duration-300">
+      <Link to={item.href} className="hover:text-white bg-emphasis px-4 py-2 rounded-full transition-all duration-300 hover:bg-black/15">
         {item.label}
       </Link>
     )}
@@ -53,7 +53,7 @@ export default function Header() {
 
   return (
     <motion.header
-      className="bg-amber-500"
+      className="bg-primary"
       style={{ position: 'fixed', zIndex: 50 }}
       animate={isTop ? 'top' : 'scrolled'}
       variants={{
@@ -77,7 +77,7 @@ export default function Header() {
       transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
     >
       <div className="mx-auto flex h-[4.5rem] items-center justify-between gap-6 px-8" style={{ borderRadius: 'inherit' }}>
-        <Link to="/" className="text-lg font-semibold tracking-tight text-white hover:text-green-100">
+        <Link to="/" className="text-lg font-semibold tracking-tight text-white">
           Brian Trust.inc
         </Link>
         <nav className="flex items-center gap-6 text-sm font-medium text-green-50">

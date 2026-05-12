@@ -2,6 +2,7 @@ import { useEffect, useRef, useState } from 'react'
 import { animate, motion, useInView } from 'motion/react'
 import SpecificPageLayout from '../components/SpecificPageLayout'
 import { services } from '../data/Services'
+import { ContactForm } from '../components/ContactForm'
 
 const stats = [
   { label: '満足度', kind: 'simple', to: 99, suffix: '%', digits: 'ascii' },
@@ -150,7 +151,7 @@ function RunningStatNumber({ to, suffix, digits, delay }) {
 const Services = () => {
   return (
     <SpecificPageLayout title="Services">
-      <div className="flex flex-col gap-12 px-8 pb-12 md:gap-16">
+      <div className="flex flex-col gap-8 px-8 pb-8">
         {services.map((service, index) => {
           const isOddRow = index % 2 === 0
           const imageOrder = isOddRow ? 'order-1' : 'order-2'
@@ -159,7 +160,7 @@ const Services = () => {
           return (
             <article
               key={service.title}
-              className="grid grid-cols-1 items-center gap-6 md:grid-cols-2 md:gap-10 lg:gap-12"
+              className="grid grid-cols-1 items-center gap-12 md:grid-cols-2"
             >
               <div
                 className={`relative aspect-video w-full overflow-hidden rounded-xl bg-zinc-100 ${imageOrder}`}
@@ -170,11 +171,13 @@ const Services = () => {
                   className="h-full w-full object-cover object-center"
                 />
               </div>
-              <div className={`flex flex-col gap-3 ${textOrder}`}>
-                <h2 className="text-xl font-semibold tracking-tight text-zinc-900 md:text-2xl">
+              <div className={`flex w-full flex-col gap-3 ${textOrder} items-start`}>
+                <h2
+                  className={`text-4xl font-semibold tracking-tight text-zinc-900 ${isOddRow ? 'text-start' : 'text-end'}`}
+                >
                   {service.title}
                 </h2>
-                <p className="text-sm leading-relaxed text-zinc-600 md:text-base">{service.description}</p>
+                <p className="text-md leading-relaxed text-zinc-600 text-start">{service.description}</p>
               </div>
             </article>
           )
@@ -182,12 +185,12 @@ const Services = () => {
 
         <section
           aria-label="実績指標"
-          className="grid grid-cols-1 gap-10 border-t border-zinc-200 pt-12 sm:grid-cols-3 sm:gap-8 md:gap-12"
+          className="grid grid-cols-1 border-t border-zinc-200 pt-8 sm:grid-cols-3 gap-8"
         >
           {stats.map((stat, index) => (
             <div
               key={stat.label}
-              className="flex flex-col items-center justify-center gap-2 text-center"
+              className="flex flex-col items-center justify-center gap-2 text-center bg-zinc-100 py-16 rounded-xl"
             >
               <span className="text-sm font-medium text-zinc-600">{stat.label}</span>
               {stat.kind === 'revenue' ? (
@@ -203,6 +206,7 @@ const Services = () => {
             </div>
           ))}
         </section>
+        <ContactForm />
       </div>
     </SpecificPageLayout>
   )

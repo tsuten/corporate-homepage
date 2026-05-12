@@ -1,7 +1,14 @@
 @import "tailwindcss";
 
+:root {
+  --primary: #CCA36B;
+  --emphasis: #AE8451;
+}
+
 @theme {
   --font-sans: "M PLUS 1p", system-ui, "Segoe UI", sans-serif;
+  --color-primary: var(--primary);
+  --color-emphasis: var(--emphasis);
 }
 
 :root {
@@ -78,13 +85,11 @@ body {
 h1 {
   font-family: var(--heading-h1);
   font-weight: 700;
-  color: var(--text-h);
+  /* color: var(--text-h); */
   font-size: 56px;
   letter-spacing: -1.68px;
-  margin: 32px 0;
   @media (max-width: 1024px) {
     font-size: 36px;
-    margin: 20px 0;
   }
 }
 h2 {

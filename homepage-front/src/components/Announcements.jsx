@@ -26,7 +26,7 @@ const Announcements = () => {
       <h1 className="mb-6 text-2xl font-medium tracking-tight text-zinc-900 text-start">Announcements</h1>
       <ul>
         {announcements.toReversed().map((announcement) => (
-          <li key={announcement.id} className="mb-4 flex flex-col gap-1 rounded-md p-4 transition-colors duration-300 hover:cursor-pointer hover:bg-zinc-100">
+          <li key={announcement.id} className="flex flex-col gap-1 rounded-xl p-4 transition-colors duration-300 hover:cursor-pointer hover:bg-zinc-100">
             <div className="text-sm tabular-nums text-zinc-600">
               {formatTimestamp(announcement.created_at)}
             </div>

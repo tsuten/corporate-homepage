@@ -1,4 +1,5 @@
 import { motion } from 'motion/react'
+import ImagesHavingFun from './ImagesHavingFun'
 
 const fadeIn = {
   initial: { opacity: 0 },
@@ -8,7 +9,7 @@ const fadeIn = {
 const Landing = () => {
   return (
     <section>
-      <div className="container mx-auto px-8 pt-8">
+      <div className="container mx-auto px-8 py-8">
         <div className="relative min-h-[70vh] md:min-h-[80vh] overflow-hidden rounded-2xl">
           <video
             src="/videos/landing-background.mp4"
@@ -48,6 +49,7 @@ const Landing = () => {
           </div>
         </div>
       </div>
+      <ImagesHavingFun />
     </section>
   )
 }

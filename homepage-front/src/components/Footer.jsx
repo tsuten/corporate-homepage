@@ -3,6 +3,25 @@ import { Link } from 'react-router-dom'
 export default function Footer() {
   const year = new Date().getFullYear()
 
+  const navItems = [
+    {
+      label: 'Home',
+      href: '/',
+    },
+    {
+      label: 'Services',
+      href: '/services',
+    },
+    {
+      label: 'About Us',
+      href: '/about-us',
+    },
+    {
+      label: 'Contact',
+      href: '/contact',
+    },
+  ]
+
   return (
     <footer className="mt-auto bg-zinc-100 rounded-2xl m-8">
       <div className="mx-auto max-w-6xl px-4 py-12 sm:px-6 lg:px-8">
@@ -19,12 +38,11 @@ export default function Footer() {
           <div>
             <p className="text-xs font-semibold uppercase tracking-wide text-zinc-500">ナビゲーション</p>
             <nav className="mt-4 flex flex-col gap-3 text-sm text-zinc-700">
-              <Link to="/" className="hover:text-zinc-900">
-                Home
+            {navItems.map((item) => (
+              <Link to={item.href} className="text-zinc-900 hover:text-zinc-600">
+                {item.label}
               </Link>
-              <Link to="/about" className="hover:text-zinc-900">
-                About
-              </Link>
+            ))}
             </nav>
           </div>
 
