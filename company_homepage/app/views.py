@@ -2,7 +2,7 @@ from django.shortcuts import get_object_or_404, redirect, render
 
 from .forms import AnnouncementForm
 from .models import Announcement
-
+from .models import Gallery
 
 def index(request):
     return render(request, 'index.html')
@@ -40,3 +40,7 @@ def announcement_delete(request, id):
     announcement = get_object_or_404(Announcement, id=id)
     announcement.delete()
     return redirect('announcement')
+
+def gallery(request):
+    galleries = Gallery.objects.all()
+    return render(request, 'gallery.html', {'galleries': galleries})    

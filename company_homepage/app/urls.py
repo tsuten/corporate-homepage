@@ -7,4 +7,5 @@ urlpatterns = [
     path('announcement/create/', views.announcement_create, name='announcement_create'),
     path('announcement/update/<int:id>/', views.announcement_update, name='announcement_update'),
     path('announcement/delete/<int:id>/', views.announcement_delete, name='announcement_delete'),
+    path('gallery/', views.gallery, name='gallery'),
 ]
