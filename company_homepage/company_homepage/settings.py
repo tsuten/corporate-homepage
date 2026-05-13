@@ -142,5 +142,13 @@ CORS_ALLOWED_ORIGINS = [
     'https://160.251.178.123',
 ]
 
+# Nginxから渡されるプロトコル（httpかhttpsか）を正しく判定する
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
+# 信頼できるプロキシのIP（自分のサーバー）を指定
+# これにより、request.META['REMOTE_ADDR'] が利用者のIPになります
+USE_X_FORWARDED_HOST = True
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+
 CORS_ALLOW_ALL_ORIGINS = True
 CORS_URLS_REGEX = r'^/api/.*$'
