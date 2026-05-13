@@ -144,6 +144,8 @@ CORS_ALLOWED_ORIGINS = [
     'http://localhost',
 ]
 
+ALLOWED_HOSTS = ['*']
+
 # Nginxから渡されるプロトコル（httpかhttpsか）を正しく判定する
 SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
