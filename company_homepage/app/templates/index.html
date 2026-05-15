@@ -1,0 +1,18 @@
+{% extends 'base.html' %}
+{% block title %}Brian Trust.inc 管理ダッシュボード{% endblock %}
+{% block content %}
+<div class="container py-4">
+    <h1 class="mb-4">Brian Trust.inc 管理ダッシュボード</h1>
+</div>
+<div class="container py-4">
+    <h2 class="mb-4">管理メニュー</h2>
+    <ul class="list-group">
+        <li class="list-group-item">
+            <a href="{% url 'announcement' %}">お知らせ管理</a>
+        </li>
+        <li class="list-group-item">
+            <a href="{% url 'gallery' %}">ギャラリー管理</a>
+        </li>
+    </ul>
+</div>
+{% endblock %}

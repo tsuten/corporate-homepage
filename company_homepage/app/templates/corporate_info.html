@@ -1,0 +1,72 @@
+{% extends 'base.html' %}
+{% block title %}会社情報管理{% endblock %}
+{% block content %}
+<div class="container py-4">
+    <div class="d-flex flex-wrap justify-content-between align-items-center gap-2 mb-4">
+        <h1 class="mb-0">会社情報管理</h1>
+        {% if not corporate_info %}
+        <a href="{% url 'corporate_info_create' %}" class="btn btn-primary">会社情報を追加</a>
+        {% endif %}
+    </div>
+    {% if corporate_info %}
+    <div class="table-responsive">
+        <table class="table table-bordered table-striped align-middle">
+            <tbody>
+                <tr>
+                    <th class="table-light text-nowrap" scope="row">会社名</th>
+                    <td>{{ corporate_info.name }}</td>
+                </tr>
+                <tr>
+                    <th class="table-light text-nowrap" scope="row">説明</th>
+                    <td>{{ corporate_info.description|linebreaksbr }}</td>
+                </tr>
+                <tr>
+                    <th class="table-light text-nowrap" scope="row">住所</th>
+                    <td>{{ corporate_info.address }}</td>
+                </tr>
+                <tr>
+                    <th class="table-light text-nowrap" scope="row">電話</th>
+                    <td>{{ corporate_info.phone }}</td>
+                </tr>
+                <tr>
+                    <th class="table-light text-nowrap" scope="row">メール</th>
+                    <td><a href="mailto:{{ corporate_info.email }}">{{ corporate_info.email }}</a></td>
+                </tr>
+                <tr>
+                    <th class="table-light text-nowrap" scope="row">設立日</th>
+                    <td>{{ corporate_info.founded_at|date:"Y年n月j日" }}</td>
+                </tr>
+                <tr>
+                    <th class="table-light text-nowrap" scope="row">従業員数</th>
+                    <td>{{ corporate_info.employee_count }} 名</td>
+                </tr>
+                <tr>
+                    <th class="table-light text-nowrap" scope="row">資本金</th>
+                    <td>¥{{ corporate_info.capital }}</td>
+                </tr>
+                <tr>
+                    <th class="table-light text-nowrap" scope="row">ウェブサイト</th>
+                    <td>
+                        {% if corporate_info.website %}
+                        <a href="{{ corporate_info.website }}" target="_blank" rel="noopener noreferrer">{{ corporate_info.website }}</a>
+                        {% else %}
+                        <span class="text-muted">—</span>
+                        {% endif %}
+                    </td>
+                </tr>
+                <tr>
+                    <th class="table-light text-nowrap" scope="row">登録日時</th>
+                    <td class="text-body-secondary">{{ corporate_info.created_at|date:"Y年n月j日 H:i" }}</td>
+                </tr>
+                <tr>
+                    <th class="table-light text-nowrap" scope="row">更新日時</th>
+                    <td class="text-body-secondary">{{ corporate_info.updated_at|date:"Y年n月j日 H:i" }}</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+    {% else %}
+    <p class="text-muted mb-0">会社情報が登録されていません。上のボタンから追加できます。</p>
+    {% endif %}
+</div>
+{% endblock %}

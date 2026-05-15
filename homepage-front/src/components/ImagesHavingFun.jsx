@@ -2,13 +2,7 @@ import { Splide, SplideSlide } from '@splidejs/react-splide'
 import { AutoScroll } from '@splidejs/splide-extension-auto-scroll'
 import '@splidejs/react-splide/css'
 import './ImagesHavingFun.css'
-
-const images = [
-  { src: '/img/office-high.webp', alt: 'チーム写真 1' },
-  { src: '/img/office.webp', alt: 'オフィス' },
-  { src: '/img/office2.jpg', alt: 'ギャラリー画像 2' },
-  { src: '/img/office-meeting.webp', alt: 'ギャラリー画像 3' },
-]
+import { landingGalleryImages } from '../data/landingGalleryImages.js'
 
 const splideOptions = {
   type: 'loop',
@@ -37,7 +31,7 @@ const ImagesHavingFun = () => {
           extensions={{ AutoScroll }}
           aria-label="フォトギャラリー"
         >
-          {images.map((item) => (
+          {landingGalleryImages.map((item) => (
             <SplideSlide key={item.src}>
               <img src={item.src} alt={item.alt} loading="lazy" draggable={false} />
             </SplideSlide>

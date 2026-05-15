@@ -1,5 +1,10 @@
+import { useCallback, useState } from 'react'
 import { motion } from 'motion/react'
 import ImagesHavingFun from './ImagesHavingFun'
+import {
+  LANDING_VIDEO_POSTER,
+  LANDING_VIDEO_SRC,
+} from '../utils/preloadCriticalAssets.js'
 
 const fadeIn = {
   initial: { opacity: 0 },
@@ -7,18 +12,25 @@ const fadeIn = {
 }
 
 const Landing = () => {
+  const [heroVideoVisible, setHeroVideoVisible] = useState(false)
+  const revealHeroVideo = useCallback(() => setHeroVideoVisible(true), [])
+
   return (
     <section>
       <div className="container mx-auto px-8 py-8">
-        <div className="relative min-h-[70vh] md:min-h-[80vh] overflow-hidden rounded-2xl">
+        <div className="relative min-h-[70vh] md:min-h-[80vh] overflow-hidden rounded-2xl bg-zinc-900">
           <video
-            src="/videos/landing-background.mp4"
+            src={LANDING_VIDEO_SRC}
             autoPlay
             loop
             muted
             playsInline
-            poster="/img/ceo.jpg"
-            className="absolute inset-0 size-full object-cover"
+            poster={LANDING_VIDEO_POSTER}
+            onCanPlayThrough={revealHeroVideo}
+            onPlaying={revealHeroVideo}
+            className={`absolute inset-0 size-full object-cover transition-opacity duration-500 ease-out ${
+              heroVideoVisible ? 'opacity-100' : 'opacity-0'
+            }`}
           />
           <div
             className="absolute inset-0"
@@ -32,7 +44,7 @@ const Landing = () => {
                 {...fadeIn}
                 transition={{ duration: 0.75, ease: [0.22, 1, 0.36, 1] }}
               >
-                Make No Difference.
+                Just Do It.
               </motion.h1>
               <motion.p
                 className="text-lg text-white/95 md:text-xl lg:text-2xl"
@@ -43,7 +55,7 @@ const Landing = () => {
                   delay: 0.12,
                 }}
               >
-                何も変えない。
+                ただやれ。
               </motion.p>
             </div>
           </div>

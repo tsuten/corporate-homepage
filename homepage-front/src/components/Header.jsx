@@ -55,6 +55,7 @@ export default function Header() {
     <motion.header
       className="bg-primary"
       style={{ position: 'fixed', zIndex: 50 }}
+      initial={false}
       animate={isTop ? 'top' : 'scrolled'}
       variants={{
         top: {

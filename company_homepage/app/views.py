@@ -1,8 +1,10 @@
 from django.shortcuts import get_object_or_404, redirect, render
 
-from .forms import AnnouncementForm
-from .models import Announcement
+from .forms import AnnouncementForm, CompanyInfoForm
+from .models import Announcement, CompanyInfo
 from .models import Gallery
+from .models import Contact
+from django.views.generic import ListView, CreateView, UpdateView, DeleteView
 
 def index(request):
     return render(request, 'index.html')
@@ -43,4 +45,32 @@ def announcement_delete(request, id):
 
 def gallery(request):
     galleries = Gallery.objects.all()
-    return render(request, 'gallery.html', {'galleries': galleries})    
+    return render(request, 'gallery.html', {'galleries': galleries})
+
+class ContactListView(ListView):
+    model = Contact
+    template_name = 'contact_list.html'
+    context_object_name = 'contacts'
+
+def contact_read(request, id):
+    contact = get_object_or_404(Contact, id=id)
+    contact.is_read = True
+    contact.save()
+    return redirect('contact_list')
+
+def corporate_info(request):
+    corporate_info = CompanyInfo.objects.first()
+    return render(request, 'corporate_info.html', {'corporate_info': corporate_info})
+
+
+def corporate_info_create(request):
+    if CompanyInfo.objects.exists():
+        return redirect('corporate_info')
+    if request.method == 'POST':
+        form = CompanyInfoForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return redirect('corporate_info')
+    else:
+        form = CompanyInfoForm()
+    return render(request, 'corporate_info_create.html', {'form': form})

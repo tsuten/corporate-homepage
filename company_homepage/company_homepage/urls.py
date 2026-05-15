@@ -21,8 +21,8 @@ from django.urls import path, include
 from api.views import api
 
 urlpatterns = [
+    path('', include('app.urls')),
     path('admin/', admin.site.urls),
-    path('manager/', include('app.urls')),
     path('api/', api.urls),
     path('markdownx/', include('markdownx.urls')),
 ]

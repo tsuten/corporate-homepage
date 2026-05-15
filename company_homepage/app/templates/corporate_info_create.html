@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}会社情報の追加{% endblock %}
+{% block content %}
+<div class="container py-4">
+    <h1 class="mb-4">会社情報の追加</h1>
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {% if form.non_field_errors %}
+            <div class="alert alert-danger" role="alert">
+                {{ form.non_field_errors }}
+            </div>
+        {% endif %}
+        {% for field in form %}
+        <div class="mb-3">
+            <label class="form-label" for="{{ field.id_for_label }}">{{ field.label }}</label>
+            {{ field }}
+            {% if field.errors %}
+                <div class="invalid-feedback d-block">{{ field.errors|join:" " }}</div>
+            {% endif %}
+        </div>
+        {% endfor %}
+        <button type="submit" class="btn btn-primary">登録</button>
+        <a href="{% url 'corporate_info' %}" class="btn btn-outline-secondary ms-2">戻る</a>
+    </form>
+</div>
+{% endblock %}

@@ -3,6 +3,7 @@ from typing import List
 from app.models import Announcement
 from ninja import ModelSchema, NinjaAPI
 from app.models import Link
+from app.models import Contact
 api = NinjaAPI()
 
 
@@ -16,11 +17,24 @@ class LinkOut(ModelSchema):
         model = Link
         fields = "__all__"
 
+class ContactOut(ModelSchema):
+    class Meta:
+        model = Contact
+        fields = "__all__"
+
+class ContactIn(ModelSchema):
+    class Meta:
+        model = Contact
+        fields = ["name", "email", "phone", "subject", "message"]
 
 @api.get("/announcement", response=List[AnnouncementOut])
 def list_announcements(request):
-    return Announcement.objects.all()
+    return Announcement.objects.filter(is_deleted=False, is_published=True).order_by('-created_at')
 
 @api.get("/link", response=List[LinkOut])
 def list_links(request):
     return Link.objects.all()
+
+@api.post("/contact", response=ContactOut)
+def create_contact(request, contact: ContactIn):
+    return Contact.objects.create(**contact.model_dump())
