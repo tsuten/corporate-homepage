@@ -22,7 +22,7 @@ const Announcements = () => {
     })
   }, [])
   return (
-    <section id="announcements" className="container mx-auto px-4 py-8 text-left">
+    <section id="announcements" className="w-full px-4 py-8 text-left">
       <h1 className="pb-4 text-2xl font-medium tracking-tight text-zinc-900 text-start px-4">Announcements</h1>
       <ul>
         {announcements.toReversed().map((announcement) => (

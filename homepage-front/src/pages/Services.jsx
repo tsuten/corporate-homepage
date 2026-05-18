@@ -1,5 +1,6 @@
 import { useEffect, useRef, useState } from 'react'
 import { animate, motion, useInView } from 'motion/react'
+import BreadCrumb from '../components/BreadCrumb'
 import SpecificPageLayout from '../components/SpecificPageLayout'
 import { services } from '../data/Services'
 import { ContactForm } from '../components/ContactForm'
@@ -148,9 +149,17 @@ function RunningStatNumber({ to, suffix, digits, delay }) {
   )
 }
 
+const servicesBreadcrumbItems = [
+  { label: 'ホーム', to: '/' },
+  { label: 'Services' },
+]
+
 const Services = () => {
   return (
-    <SpecificPageLayout title="Services">
+    <SpecificPageLayout
+      title="Services"
+      breadcrumb={<BreadCrumb items={servicesBreadcrumbItems} />}
+    >
       <div className="flex flex-col gap-8 px-8 pb-8">
         {services.map((service, index) => {
           const isOddRow = index % 2 === 0

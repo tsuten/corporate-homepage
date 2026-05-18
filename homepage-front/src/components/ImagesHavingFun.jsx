@@ -21,7 +21,7 @@ const splideOptions = {
 
 const ImagesHavingFun = () => {
   return (
-    <section className="imagesHavingFun container mx-auto">
+    <section className="imagesHavingFun w-full">
       {/* <h2 className="mb-6 text-2xl font-semibold tracking-tight text-zinc-900">フォトギャラリー</h2> */}
       <div className="imagesHavingFun-inner">
         <Splide

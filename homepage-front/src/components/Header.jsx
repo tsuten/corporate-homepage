@@ -9,19 +9,19 @@ const navItems = [
   },
   {
     label: '私達について',
-    href: '#about-us',
+    href: '/about-us',
   },
   {
     label: 'お知らせ',
-    href: '#announcements',
+    href: '/announcements',
   },
-  {
-    label: 'ギャラリー',
-    href: '#gallery',
-  },
+  // {
+  //   label: 'ギャラリー',
+  //   href: '#gallery',
+  // },
   {
     label: '採用情報',
-    href: '#recruit',
+    href: '/recruitment',
     emphasis: true,
   },
 ]

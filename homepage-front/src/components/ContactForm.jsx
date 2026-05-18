@@ -49,7 +49,7 @@ export const ContactForm = () => {
     const [message, setMessage] = useState('')
 
     const styles = {
-        container: 'container mx-auto px-8 py-8 bg-emphasis rounded-2xl overflow-hidden',
+        container: 'w-full px-8 py-8 bg-emphasis rounded-2xl overflow-hidden',
         label: 'text-white text-start',
         input: 'w-full p-2 rounded-md bg-white focus:outline-none',
         textarea: 'w-full p-2 border border-zinc-300 rounded-md bg-white focus:outline-none',

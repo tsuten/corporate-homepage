@@ -5,6 +5,8 @@ import Footer from './Footer'
 import About from '../pages/About'
 import Index from '../pages/Index'
 import Services from '../pages/Services'
+import Announcement from '../pages/Announcement'
+import Recruitment from '../pages/Recruitment'
 
 const FADE_DURATION = 0.28
 
@@ -49,8 +51,10 @@ export default function PageTransitionLayout() {
       <div className="flex min-h-0 w-full flex-1 flex-col">
         <Routes location={displayLocation}>
           <Route path="/" element={<Index />} />
-          <Route path="/about" element={<About />} />
+          <Route path="/about-us" element={<About />} />
           <Route path="/services" element={<Services />} />
+          <Route path="/announcements" element={<Announcement />} />
+          <Route path="/recruitment" element={<Recruitment />} />
         </Routes>
       </div>
       <Footer />

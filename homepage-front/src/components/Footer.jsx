@@ -31,7 +31,7 @@ export default function Footer() {
               Brian Trust.inc
             </Link>
             <p className="mt-3 max-w-xs text-sm leading-relaxed text-zinc-600">
-              世界を変えない。
+              Just Do It.
             </p>
           </div>
 

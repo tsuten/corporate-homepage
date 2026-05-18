@@ -17,7 +17,7 @@ const Landing = () => {
 
   return (
     <section>
-      <div className="container mx-auto px-8 py-8">
+      <div className="w-full px-8 py-8">
         <div className="relative min-h-[70vh] md:min-h-[80vh] overflow-hidden rounded-2xl bg-zinc-900">
           <video
             src={LANDING_VIDEO_SRC}
