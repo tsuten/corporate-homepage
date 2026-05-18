@@ -60,3 +60,12 @@ class Contact(models.Model):
 
     def __str__(self):
         return self.name + ' - ' + self.subject + ' - ' + ('既読' if self.is_read else '未読')
+
+class Faq(models.Model):
+    question = models.CharField(max_length=200)
+    answer = MarkdownxField()
+    created_at = models.DateTimeField(auto_now_add=True)
+    updated_at = models.DateTimeField(auto_now=True)
+
+    def __str__(self):
+        return self.question

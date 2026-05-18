@@ -1,53 +1,62 @@
-import { useEffect, useState } from 'react'
 import BreadCrumb from '../components/BreadCrumb'
 import SpecificPageLayout from '../components/SpecificPageLayout'
-import { api } from '../utils/api'
-
-/**
- * @param {unknown} value
- */
-const formatCompanyInfoCell = (value) => {
-  if (value === null || value === undefined) {
-    return 'null'
-  }
-  if (typeof value === 'object') {
-    return JSON.stringify(value)
-  }
-  return String(value)
-}
-
-const COMPANY_INFO_FIELD_DEFS = [
-  { key: 'name', label: '社名' },
-  { key: 'address', label: '所在地' },
-  { key: 'phone', label: '電話番号' },
-  { key: 'email', label: 'メール' },
-  { key: 'founded_at', label: '設立日' },
-  { key: 'employee_count', label: '従業員数' },
-  { key: 'capital', label: '資本金' },
-  { key: 'website', label: 'Webサイト' },
-]
+import { companyProfile } from '../data/AboutUs'
 
 /** @type {{ question: string; answer: string }[]} */
 const faqItems = [
   {
     question: '事業内容を教えてください。',
     answer:
-      'システム開発、建設、輸送を柱としたソリューションを提供しています。詳細はサービスページやお問い合わせからご確認ください。（プレースホルダー）',
+      'システム開発、建設、輸送を柱としたソリューションを提供しています。詳細はサービスページやお問い合わせからご確認ください。',
   },
   {
     question: '本社・拠点のアクセスはどうなっていますか。',
     answer:
-      '会社概要欄の所在地をご参照ください。最寄り駅や地図の掲載は、確定次第ここに追記できます。（プレースホルダー）',
+      '会社概要欄の所在地をご参照ください。最寄り駅や地図の掲載は現在作成中です。',
   },
   {
     question: '採用・インターンの応募は可能ですか。',
     answer:
-      '採用情報ページをご覧ください。募集職種や応募方法を順次更新していきます。（プレースホルダー）',
+      '採用情報ページをご覧ください。募集職種や応募方法を順次更新していきます。',
   },
   {
     question: '問い合わせ先（メール・電話）はありますか。',
     answer:
-      'お問い合わせフォームまたは掲載予定の連絡先からご連絡ください。内容は後から差し替え可能です。（プレースホルダー）',
+      'お問い合わせフォームまたは掲載予定の連絡先からご連絡ください。内容は後から差し替え可能です。',
+  },
+]
+
+/** @typedef {{ title: string; subtitle?: string; paragraphs: string[] }} AccessCardData */
+
+const MAP_EMBED_SRC =
+  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2088.0073703047156!2d139.75499159038432!3d35.67027044543752!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x60188b87b6a8f1df%3A0xa0a2c83faaf7cd72!2sWeWork%20Hibiya%20Park%20Front!5e0!3m2!1sen!2sjp!4v1779074200711!5m2!1sen!2sjp'
+
+/** @type {AccessCardData[]} */
+const accessCards = [
+  {
+    title: '霞ヶ関駅から',
+    subtitle: '東京メトロ：丸の内線・日比谷線・千代田線',
+    paragraphs: [
+      'でお越しの方は、地下通路を歩いて頂き、＜C4出口＞よりお越しください。',
+      '地上に出ましたら出口を背に、正面に道路となりますので右手に進んでください。（左手に大通りを見ながら進んでください）',
+      '二個目のビル（一個目の白いビルの先）が、弊社が入るテナントビルになります。',
+    ],
+  },
+  {
+    title: '内幸町駅から',
+    subtitle: '都営三田線',
+    paragraphs: [
+      'でお越しの方は、＜A7出口＞よりお越しください。',
+      '地上に出ましたら、右手に大通りを見ながら進んでください。',
+      '三個目のビルが弊社が入るテナントビルになります。',
+    ],
+  },
+  {
+    title: 'ビルへのご入館〜19階まで',
+    paragraphs: [
+      '正面よりガラス張り、二階へ進むエスカレーターが見えます。',
+      '二階の受付にて来訪のご対応のうえ、19階までお越しください。',
+    ],
   },
 ]
 
@@ -57,19 +66,19 @@ const teamMembers = [
     imagePath: '/img/ceo-face.png',
     name: '山田 太郎',
     role: '代表取締役 CEO',
-    bio: '事業戦略と組織体制の整備を担当。システム・建設・輸送の融合による付加価値創出をリードしています。（プレースホルダー）',
+    bio: '事業戦略と組織体制の整備を担当。システム・建設・輸送の融合による付加価値創出をリードしています。',
   },
   {
     imagePath: '/img/cto.jpg',
-    name: '佐藤 花子',
+    name: '鈴木 一郎',
     role: '取締役 CTO',
-    bio: '開発体制と技術選定を主管。高品質なソフトウェア開発プロセスの構葉に取り組んでいます。（プレースホルダー）',
+    bio: '開発体制と技術選定を主管。高品質なソフトウェア開発プロセスの構葉に取り組んでいます。',
   },
   {
     imagePath: '/img/manager.jpg',
-    name: '鈴木 一郎',
+    name: '佐藤 花子',
     role: '執行役員 事業開発',
-    bio: 'パートナー連携と新規案件の開拓を担当。現場目線とビジネス要件の橋渡しを行っています。（プレースホルダー）',
+    bio: 'パートナー連携と新規案件の開拓を担当。現場目線とビジネス要件の橋渡しを行っています。',
   },
 ]
 
@@ -99,6 +108,25 @@ const TeamMemberCard = ({ member }) => {
   )
 }
 
+/**
+ * @param {{ card: AccessCardData }} props
+ */
+const AccessCard = ({ card }) => {
+  return (
+    <article className="flex h-full flex-col rounded-xl border border-zinc-200/80 bg-white p-5 sm:p-6">
+      <h3 className="text-base font-semibold tracking-tight text-zinc-900">{card.title}</h3>
+      {card.subtitle ? (
+        <p className="mt-1 text-sm font-medium text-zinc-700">{card.subtitle}</p>
+      ) : null}
+      <div className="mt-3 flex flex-col gap-3 text-sm leading-relaxed text-zinc-600">
+        {card.paragraphs.map((paragraph) => (
+          <p key={paragraph}>{paragraph}</p>
+        ))}
+      </div>
+    </article>
+  )
+}
+
 const aboutBreadcrumbItems = [
   { label: 'ホーム', to: '/' },
   { label: '私達について' },
@@ -106,76 +134,159 @@ const aboutBreadcrumbItems = [
 
 const ABOUT_PAGE_TITLE = '私達について'
 
-/**
- * @param {{ data: Record<string, unknown> }} props
- */
-const CompanyInfoTable = ({ data }) => {
-  const rows = COMPANY_INFO_FIELD_DEFS.filter((def) =>
-    Object.prototype.hasOwnProperty.call(data, def.key),
-  )
+const ABOUT_INTRO_MESSAGE = [
+  '私たちは次世代のITソリューションとコンサルティングを核に、WEB・モバイルアプリの企画・開発から運用までを一貫して支援しています。さらに、最先端のアグリテック（農業IT）や高度なデータ分析、最適な人材紹介・アウトソーシング事業まで幅広く展開し、多角的なアプローチでお客様のビジネスを強力にバックアップします。',
+  '私たちが大切にしているのは、単なるシステム提供にとどまらず、お客様の課題に徹底的に寄り添い、共に未来の価値を創造するパートナーであることです。変化の激しい現代において、確かな信頼（Trust）と革新的なテクノロジーを結びつけ、持続可能な社会の実現へ貢献してまいります。',
+  'このページでは、私たちの熱い想いや組織体制の一端をご紹介します。',
+]
 
-  if (rows.length === 0) {
-    return <p className="text-left text-sm text-zinc-600">表示できる項目がありません。</p>
-  }
+const PROFILE_TH_CLASS =
+  'w-1/3 min-w-32 py-3.5 pr-4 text-left align-top font-medium text-zinc-500 sm:w-auto sm:min-w-44 sm:py-4'
+
+const PROFILE_TD_CLASS = 'py-3.5 text-left align-top text-zinc-800 wrap-break-word sm:py-4'
+
+const PROFILE_ROW_CLASS = 'border-b border-zinc-200'
+
+/**
+ * @param {{ profile: typeof companyProfile.company_profile }} props
+ */
+const CompanyProfileFields = ({ profile }) => {
+  const { head_office, contact, management } = profile
+  const hqLine = `〒${head_office.postal_code} ${head_office.address} ${head_office.building}`
 
   return (
-    <table className="w-full border-collapse border-0 text-left text-sm">
+    <table className="w-full border-collapse border-t border-zinc-200 text-left text-sm">
       <tbody>
-        {rows.map(({ key, label }) => (
-          <tr key={key}>
-            <th
-              scope="row"
-              className="w-1/3 min-w-32 border-0 py-1.5 pr-4 text-left align-top font-medium text-zinc-500 sm:w-auto sm:min-w-44"
+        <tr className={PROFILE_ROW_CLASS}>
+          <th scope="row" className={PROFILE_TH_CLASS}>
+            社名
+          </th>
+          <td className={PROFILE_TD_CLASS}>{profile.company_name}</td>
+        </tr>
+        <tr className={PROFILE_ROW_CLASS}>
+          <th scope="row" className={PROFILE_TH_CLASS}>
+            社名（英語表記）
+          </th>
+          <td className={PROFILE_TD_CLASS}>{profile.company_name_en}</td>
+        </tr>
+        <tr className={PROFILE_ROW_CLASS}>
+          <th scope="row" className={PROFILE_TH_CLASS}>
+            所在地
+          </th>
+          <td className={PROFILE_TD_CLASS}>{hqLine}</td>
+        </tr>
+        <tr className={PROFILE_ROW_CLASS}>
+          <th scope="row" className={PROFILE_TH_CLASS}>
+            電話番号
+          </th>
+          <td className={PROFILE_TD_CLASS}>
+            <a href={`tel:${contact.tel.replace(/-/g, '')}`} className="underline decoration-zinc-400">
+              {contact.tel}
+            </a>
+          </td>
+        </tr>
+        <tr className={PROFILE_ROW_CLASS}>
+          <th scope="row" className={PROFILE_TH_CLASS}>
+            メール
+          </th>
+          <td className={PROFILE_TD_CLASS}>
+            <a href={`mailto:${contact.email}`} className="underline decoration-zinc-400">
+              {contact.email}
+            </a>
+          </td>
+        </tr>
+        <tr className={PROFILE_ROW_CLASS}>
+          <th scope="row" className={PROFILE_TH_CLASS}>
+            Webサイト
+          </th>
+          <td className={PROFILE_TD_CLASS}>
+            <a
+              href={contact.website}
+              className="underline decoration-zinc-400"
+              target="_blank"
+              rel="noopener noreferrer"
             >
-              {label}
-            </th>
-            <td className="border-0 py-1.5 text-left align-top text-zinc-800 wrap-break-word">
-              {formatCompanyInfoCell(data[key] ?? null)}
-            </td>
-          </tr>
-        ))}
+              {contact.website}
+            </a>
+          </td>
+        </tr>
+        <tr className={PROFILE_ROW_CLASS}>
+          <th scope="row" className={PROFILE_TH_CLASS}>
+            代表者
+          </th>
+          <td className={PROFILE_TD_CLASS}>{management.ceo}</td>
+        </tr>
+        <tr className={PROFILE_ROW_CLASS}>
+          <th scope="row" className={PROFILE_TH_CLASS}>
+            役員
+          </th>
+          <td className={PROFILE_TD_CLASS}>{management.coo}</td>
+        </tr>
+        <tr className={PROFILE_ROW_CLASS}>
+          <th scope="row" className={PROFILE_TH_CLASS}>
+            設立日
+          </th>
+          <td className={PROFILE_TD_CLASS}>{profile.establishment_date}</td>
+        </tr>
+        <tr className={PROFILE_ROW_CLASS}>
+          <th scope="row" className={PROFILE_TH_CLASS}>
+            資本金
+          </th>
+          <td className={PROFILE_TD_CLASS}>{profile.capital}</td>
+        </tr>
+        <tr className={PROFILE_ROW_CLASS}>
+          <th scope="row" className={PROFILE_TH_CLASS}>
+            従業員数
+          </th>
+          <td className={PROFILE_TD_CLASS}>{profile.number_of_employees}名</td>
+        </tr>
+        <tr className={PROFILE_ROW_CLASS}>
+          <th scope="row" className={PROFILE_TH_CLASS}>
+            事業内容
+          </th>
+          <td className={PROFILE_TD_CLASS}>
+            <ul className="m-0 list-disc pl-4 text-zinc-800">
+              {profile.business_summary.map((line) => (
+                <li key={line} className="py-0.5">
+                  {line}
+                </li>
+              ))}
+            </ul>
+          </td>
+        </tr>
+        <tr className={PROFILE_ROW_CLASS}>
+          <th scope="row" className={PROFILE_TH_CLASS}>
+            取引銀行
+          </th>
+          <td className={PROFILE_TD_CLASS}>
+            <ul className="m-0 list-disc pl-4 text-zinc-800">
+              {profile.main_banks.map((line) => (
+                <li key={line} className="py-0.5">
+                  {line}
+                </li>
+              ))}
+            </ul>
+          </td>
+        </tr>
+        <tr className={PROFILE_ROW_CLASS}>
+          <th scope="row" className={PROFILE_TH_CLASS}>
+            決算期
+          </th>
+          <td className={PROFILE_TD_CLASS}>{profile.fiscal_year_end}</td>
+        </tr>
       </tbody>
     </table>
   )
 }
 
 const About = () => {
-  const [companyInfo, setCompanyInfo] = useState(/** @type {Record<string, unknown> | null} */ (null))
-  const [companyInfoError, setCompanyInfoError] = useState(/** @type {string | null} */ (null))
-  const [companyInfoLoading, setCompanyInfoLoading] = useState(true)
+  const profile = companyProfile.company_profile
 
-  useEffect(() => {
-    let cancelled = false
-    setCompanyInfoLoading(true)
-    setCompanyInfoError(null)
-    api
-      .get('/company-info')
-      .then((res) => {
-        if (!cancelled) {
-          setCompanyInfo(res.data && typeof res.data === 'object' ? res.data : null)
-        }
-      })
-      .catch((err) => {
-        console.error(err)
-        if (!cancelled) {
-          setCompanyInfoError('会社情報を読み込めませんでした。')
-          setCompanyInfo(null)
-        }
-      })
-      .finally(() => {
-        if (!cancelled) {
-          setCompanyInfoLoading(false)
-        }
-      })
-    return () => {
-      cancelled = true
-    }
-  }, [])
   return (
     <SpecificPageLayout title={ABOUT_PAGE_TITLE} breadcrumb={<BreadCrumb items={aboutBreadcrumbItems} />}>
       <div className="flex flex-col gap-8 px-8 pb-8 text-left">
 
-        <div className="grid grid-cols-2 items-start gap-8 text-left">
+        <div className="grid grid-cols-1 items-start gap-8 text-left md:grid-cols-2">
           <div className="overflow-hidden rounded-xl bg-zinc-100">
             <img
               src="/img/office.webp"
@@ -185,25 +296,22 @@ const About = () => {
             />
           </div>
 
-          <div className="flex flex-col gap-8 bg-zinc-100 p-4 text-left rounded-xl h-full">
-            {companyInfoLoading && (
-              <p className="text-left text-sm text-zinc-600" aria-live="polite">
-                読み込み中…
+          <div className="flex h-full flex-col justify-center gap-4 rounded-xl bg-zinc-100 p-6 text-left sm:p-8">
+            <h2 className="text-2xl font-semibold tracking-tight text-zinc-900">代表メッセージ</h2>
+            {ABOUT_INTRO_MESSAGE.map((paragraph) => (
+              <p key={paragraph} className="text-base leading-relaxed text-zinc-700">
+                {paragraph}
               </p>
-            )}
-            {companyInfoError && (
-              <p className="text-left text-sm text-red-600" role="alert">
-                {companyInfoError}
-              </p>
-            )}
-            {!companyInfoLoading && !companyInfoError && !companyInfo && (
-              <p className="text-left text-sm text-zinc-600">会社情報が登録されていません。</p>
-            )}
-            {!companyInfoLoading && !companyInfoError && companyInfo && (
-              <CompanyInfoTable data={companyInfo} />
-            )}
+            ))}
           </div>
         </div>
+
+        <section className="flex flex-col gap-6 border-t border-zinc-200 pt-8 text-left" aria-labelledby="company-profile-heading">
+          <h2 id="company-profile-heading" className="text-xl font-semibold tracking-tight text-zinc-900">
+            会社概要
+          </h2>
+          <CompanyProfileFields profile={profile} />
+        </section>
 
         <section className="flex flex-col gap-6 pt-4 text-left" aria-labelledby="about-team-heading">
           <h2
@@ -217,6 +325,32 @@ const About = () => {
               <TeamMemberCard key={member.name} member={member} />
             ))}
           </ul>
+        </section>
+
+        <section className="flex flex-col gap-8 border-t border-zinc-200 pt-8 text-left" aria-labelledby="access-heading">
+          <h2 id="access-heading" className="text-xl font-semibold tracking-tight text-zinc-900">
+            アクセス
+          </h2>
+          <ul className="grid list-none grid-cols-1 gap-6 md:grid-cols-3">
+            {accessCards.map((card) => (
+              <li key={card.title}>
+                <AccessCard card={card} />
+              </li>
+            ))}
+          </ul>
+          <div>
+            <h3 className="mb-4 text-lg font-semibold tracking-tight text-zinc-900">地図</h3>
+            <div className="relative aspect-3/2 w-full overflow-hidden rounded-xl border border-zinc-200 bg-zinc-100">
+              <iframe
+                className="absolute left-0 top-0 size-full border-0"
+                src={MAP_EMBED_SRC}
+                allowFullScreen
+                loading="lazy"
+                referrerPolicy="no-referrer-when-downgrade"
+                title="Google マップ — WeWork 日比谷パークフロント（内幸町）"
+              />
+            </div>
+          </div>
         </section>
 
         <section className="flex flex-col gap-6 pt-4 text-left" aria-labelledby="about-faq-heading">

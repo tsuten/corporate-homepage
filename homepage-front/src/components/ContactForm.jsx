@@ -78,7 +78,7 @@ export const ContactForm = () => {
 
     return (
         <LayoutGroup>
-            <motion.div layout className={styles.container} transition={{ layout: layoutTransition }}>
+            <motion.div id="contact" layout className={styles.container} transition={{ layout: layoutTransition }}>
                 <AnimatePresence mode="popLayout" initial={false}>
                     {!submitted ? (
                         <motion.form

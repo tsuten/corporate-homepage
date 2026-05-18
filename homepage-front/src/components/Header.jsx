@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Link } from 'react-router-dom'
 import { motion, useScroll, useMotionValueEvent } from 'motion/react'
 
@@ -45,11 +45,23 @@ const NavLink = ({ item, isActive, emphasis }) => {
 
 export default function Header() {
   const [isTop, setIsTop] = useState(true)
+  const [isCompactViewport, setIsCompactViewport] = useState(false)
   const { scrollY } = useScroll()
 
   useMotionValueEvent(scrollY, 'change', (y) => {
     setIsTop(y < 64)
   })
+
+  useEffect(() => {
+    const mq = window.matchMedia('(max-width: 1024px)')
+    const apply = () => setIsCompactViewport(mq.matches)
+    apply()
+    mq.addEventListener('change', apply)
+    return () => mq.removeEventListener('change', apply)
+  }, [])
+
+  const scrolledInset = isCompactViewport ? 12 : 256
+  const scrolledRadius = isCompactViewport ? 16 : 24
 
   return (
     <motion.header
@@ -68,16 +80,19 @@ export default function Header() {
         },
         scrolled: {
           top: 12,
-          left: 256,
-          right: 256,
-          borderRadius: 24,
+          left: scrolledInset,
+          right: scrolledInset,
+          borderRadius: scrolledRadius,
           boxShadow: 'none',
           border: '0px solid transparent',
         },
       }}
       transition={{ duration: 0.35, ease: [0.4, 0, 0.2, 1] }}
     >
-      <div className="mx-auto flex h-[4.5rem] items-center justify-between gap-6 px-8" style={{ borderRadius: 'inherit' }}>
+      <div
+        className={`mx-auto flex h-[4.5rem] items-center justify-between gap-6 ${isCompactViewport ? 'px-4' : 'px-8'}`}
+        style={{ borderRadius: 'inherit' }}
+      >
         <Link to="/" className="text-lg font-semibold tracking-tight text-white">
           Brian Trust.inc
         </Link>

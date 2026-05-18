@@ -1,5 +1,5 @@
 import { aboutItems } from '../data/AboutUs'
-
+import { Link } from 'react-router-dom'
 const AboutUs = () => {
   const sectionTitle = 'About Us'
   const items = aboutItems
@@ -12,30 +12,35 @@ const AboutUs = () => {
 ITによる効率化と、現場で培った確かな技術力。その両輪で、変化し続ける社会のニーズに応え、より豊かな未来の基盤を築いていきます。</p>
       <ul className="mx-auto grid list-none grid-cols-1 gap-6 md:grid-cols-2 lg:gap-8">
         {items.map((item) => (
-          <li key={item.title} className="hover:cursor-pointer">
-            <article className="flex h-full flex-col overflow-hidden rounded-xl border border-zinc-200/80 bg-white">
-              <div className="w-full shrink-0 bg-zinc-100">
-                <img
-                  src={item.imagePath}
-                  alt={item.title}
-                  className="block max-h-72 w-full object-cover object-center"
-                />
-              </div>
-              <div className="flex flex-1 flex-col border-t border-zinc-100 p-5 sm:p-6">
-                <h2 className="text-lg font-semibold text-zinc-900">{item.title}</h2>
-                <p className="mt-3 flex-1 text-sm leading-relaxed text-zinc-600 sm:text-base text-start">
-                  {item.description}
-                </p>
-                <p className="mt-4">
-                  {/* <a
+          <li key={item.title}>
+            <Link
+              to="/about-us"
+              className="group block h-full rounded-xl hover:cursor-pointer"
+            >
+              <article className="flex h-full flex-col overflow-hidden rounded-xl border border-zinc-200/80 bg-white">
+                <div className="w-full shrink-0 bg-zinc-100">
+                  <img
+                    src={item.imagePath}
+                    alt={item.title}
+                    className="block max-h-72 w-full object-cover object-center"
+                  />
+                </div>
+                <div className="flex flex-1 flex-col border-t border-zinc-100 p-5 sm:p-6">
+                  <h2 className="text-lg font-semibold text-zinc-900">{item.title}</h2>
+                  <p className="mt-3 flex-1 text-sm leading-relaxed text-zinc-600 sm:text-base text-start">
+                    {item.description}
+                  </p>
+                  <p className="mt-4">
+                    {/* <a
                     href={item.link}
                     className="text-sm font-medium text-zinc-900 underline-offset-4 hover:underline"
                   >
                     詳しく見る
                   </a> */}
-                </p>
-              </div>
-            </article>
+                  </p>
+                </div>
+              </article>
+            </Link>
           </li>
         ))}
       </ul>

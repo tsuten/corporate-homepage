@@ -10,8 +10,8 @@ const Index = () => {
     
     <section className="flex flex-col gap-16"> 
       <Landing />
-      <Services />
       <AboutUs />
+      <Services />
       <Announcements />
     </section>
   )
