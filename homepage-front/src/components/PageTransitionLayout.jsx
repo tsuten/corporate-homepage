@@ -14,6 +14,16 @@ function locationsDiffer(a, b) {
   return a.pathname !== b.pathname || a.search !== b.search || a.key !== b.key
 }
 
+/** @param {string} hash */
+function scrollToHashTarget(hash) {
+  const id = hash.replace(/^#/, '')
+  if (!id) return false
+  const el = document.getElementById(decodeURIComponent(id))
+  if (!el) return false
+  el.scrollIntoView({ block: 'start', behavior: 'auto' })
+  return true
+}
+
 export default function PageTransitionLayout() {
   const location = useLocation()
   const [displayLocation, setDisplayLocation] = useState(location)
@@ -26,13 +36,35 @@ export default function PageTransitionLayout() {
     if (locationsDiffer(location, displayLocation)) {
       return
     }
+
+    const hash = displayLocation.hash
+
     if (prevCommittedPathRef.current === null) {
       prevCommittedPathRef.current = displayLocation.pathname
+      if (hash) {
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => scrollToHashTarget(hash))
+        })
+      }
       return
     }
-    if (displayLocation.pathname !== prevCommittedPathRef.current) {
-      window.scrollTo(0, 0)
+
+    const pathChanged = displayLocation.pathname !== prevCommittedPathRef.current
+
+    if (pathChanged) {
       prevCommittedPathRef.current = displayLocation.pathname
+      if (hash) {
+        requestAnimationFrame(() => {
+          requestAnimationFrame(() => scrollToHashTarget(hash))
+        })
+      } else {
+        window.scrollTo(0, 0)
+      }
+      return
+    }
+
+    if (hash) {
+      scrollToHashTarget(hash)
     }
   }, [location, displayLocation])
 

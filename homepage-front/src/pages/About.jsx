@@ -306,7 +306,11 @@ const About = () => {
           </div>
         </div>
 
-        <section className="flex flex-col gap-6 border-t border-zinc-200 pt-8 text-left" aria-labelledby="company-profile-heading">
+        <section
+          id="corporate-profile"
+          className="flex scroll-mt-28 flex-col gap-6 border-t border-zinc-200 pt-8 text-left"
+          aria-labelledby="company-profile-heading"
+        >
           <h2 id="company-profile-heading" className="text-xl font-semibold tracking-tight text-zinc-900">
             会社概要
           </h2>

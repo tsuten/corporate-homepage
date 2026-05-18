@@ -47,6 +47,6 @@ export const aboutItems = [
     title: '会社概要',
     description:
       '所在地・沿革・体制などの概要をここに記載します。必要に応じて別ページへリンクしてください。',
-    link: '#',
+    link: '#corporate-profile',
   },
 ]

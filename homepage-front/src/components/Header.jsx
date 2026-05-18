@@ -4,12 +4,12 @@ import { motion, useScroll, useMotionValueEvent } from 'motion/react'
 
 const navItems = [
   {
-    label: 'サービス',
-    href: '/services',
-  },
-  {
     label: '私達について',
     href: '/about-us',
+  },
+  {
+    label: 'サービス',
+    href: '/services',
   },
   {
     label: 'お知らせ',
