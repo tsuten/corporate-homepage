@@ -1,6 +1,11 @@
 import { useEffect, useState } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
 import { motion, useScroll, useMotionValueEvent } from 'motion/react'
+
+const isNavItemActive = (href, pathname) =>
+  href === '/'
+    ? pathname === '/'
+    : pathname === href || pathname.startsWith(`${href}/`)
 
 const navItems = [
   {
@@ -27,23 +32,29 @@ const navItems = [
 ]
 
 const NavLink = ({ item, isActive, emphasis }) => {
+  const className = emphasis
+    ? [
+        'rounded-full px-4 py-2 transition-all duration-300 hover:text-white hover:bg-black/15 bg-emphasis',
+        isActive && 'ring-2 ring-white/50 text-white',
+      ]
+        .filter(Boolean)
+        .join(' ')
+    : [
+        'rounded-full px-4 py-2 transition-all duration-300 hover:bg-white/15 hover:text-white',
+        isActive && 'bg-white/20 text-white',
+      ]
+        .filter(Boolean)
+        .join(' ')
+
   return (
-    <>
-    {!emphasis && (
-      <Link to={item.href} className="rounded-full px-4 py-2 transition-all duration-300 hover:bg-white/15 hover:text-white">
-        {item.label}
-      </Link>
-    )}
-    {emphasis && (
-      <Link to={item.href} className="hover:text-white bg-emphasis px-4 py-2 rounded-full transition-all duration-300 hover:bg-black/15">
-        {item.label}
-      </Link>
-    )}
-    </>
+    <Link to={item.href} className={className} aria-current={isActive ? 'page' : undefined}>
+      {item.label}
+    </Link>
   )
 }
 
 export default function Header() {
+  const { pathname } = useLocation()
   const [isTop, setIsTop] = useState(true)
   const [isCompactViewport, setIsCompactViewport] = useState(false)
   const { scrollY } = useScroll()
@@ -98,7 +109,12 @@ export default function Header() {
         </Link>
         <nav className="flex items-center gap-6 text-sm font-medium text-green-50">
           {navItems.map((item) => (
-            <NavLink key={item.href} item={item} emphasis={item.emphasis} />
+            <NavLink
+              key={item.href}
+              item={item}
+              emphasis={item.emphasis}
+              isActive={isNavItemActive(item.href, pathname)}
+            />
           ))}
         </nav>
       </div>

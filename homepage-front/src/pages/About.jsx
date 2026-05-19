@@ -286,7 +286,7 @@ const About = () => {
     <SpecificPageLayout title={ABOUT_PAGE_TITLE} breadcrumb={<BreadCrumb items={aboutBreadcrumbItems} />}>
       <div className="flex flex-col gap-8 px-8 pb-8 text-left">
 
-        <div className="grid grid-cols-1 items-start gap-8 text-left md:grid-cols-2">
+        <div className="grid grid-cols-1 items-start text-left md:grid-cols-2 border border-zinc-200 rounded-xl">
           <div className="overflow-hidden rounded-xl bg-zinc-100">
             <img
               src="/img/office.webp"
@@ -296,7 +296,7 @@ const About = () => {
             />
           </div>
 
-          <div className="flex h-full flex-col justify-center gap-4 rounded-xl bg-zinc-100 p-6 text-left sm:p-8">
+          <div className="flex h-full flex-col justify-center gap-4 rounded-xl p-6 text-left sm:p-8">
             <h2 className="text-2xl font-semibold tracking-tight text-zinc-900">代表メッセージ</h2>
             {ABOUT_INTRO_MESSAGE.map((paragraph) => (
               <p key={paragraph} className="text-base leading-relaxed text-zinc-700">
@@ -308,7 +308,7 @@ const About = () => {
 
         <section
           id="corporate-profile"
-          className="flex scroll-mt-28 flex-col gap-6 border-t border-zinc-200 pt-8 text-left"
+          className="flex scroll-mt-28 flex-col gap-6 text-left"
           aria-labelledby="company-profile-heading"
         >
           <h2 id="company-profile-heading" className="text-xl font-semibold tracking-tight text-zinc-900">

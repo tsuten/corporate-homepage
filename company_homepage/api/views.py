@@ -6,6 +6,8 @@ from app.models import Link
 from app.models import Contact
 from app.models import CompanyInfo
 from django.forms.models import model_to_dict
+from django.shortcuts import get_object_or_404
+
 api = NinjaAPI()
 
 
@@ -37,6 +39,10 @@ class ContactIn(ModelSchema):
 @api.get("/announcement", response=List[AnnouncementOut])
 def list_announcements(request):
     return Announcement.objects.order_by('-created_at')
+
+@api.get("/announcement/{id}", response=AnnouncementOut)
+def get_announcement(request, id: int):
+    return get_object_or_404(Announcement, id=id)
 
 @api.get("/link", response=List[LinkOut])
 def list_links(request):

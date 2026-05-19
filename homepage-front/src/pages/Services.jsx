@@ -151,7 +151,7 @@ function RunningStatNumber({ to, suffix, digits, delay }) {
 
 const servicesBreadcrumbItems = [
   { label: 'ホーム', to: '/' },
-  { label: 'Services' },
+  { label: 'サービス' },
 ]
 
 const Services = () => {
